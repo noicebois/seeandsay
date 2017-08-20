@@ -69,7 +69,7 @@ class SeeNSay extends React.Component {
     // Advance the index, bounded by sample length
     this.pointers[i] = (this.pointers[i] + 1) % SAMPLES[i].length;
     // Play the current index
-    this.playSample(`/samples/${SAMPLES[i][this.pointers[i]]}`);
+    this.playSample(`samples/${SAMPLES[i][this.pointers[i]]}`);
 
 
   }
