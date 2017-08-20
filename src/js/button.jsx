@@ -8,7 +8,7 @@ class SeeNSayButton extends React.Component {
 
   render() {
     return (
-      <button className="seensay-button" style={{backgroundColor: this.props.color}}>
+      <button className="seensay-button" style={{backgroundColor: this.props.color}} onClick={this.props.onClick}>
       </button>
     );
   }
