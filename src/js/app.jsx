@@ -107,8 +107,8 @@ class SeeNSay extends React.Component {
       <div>
         {buttons}
         <div>
-          <SeeNSayButton color={'red'} onClick={() => this.playBackSamples()} />
-          <SeeNSayButton color={'green'} onClick={() => { this.randomizeSamples(); this.playBackSamples(); }} />
+          <SeeNSayButton color={'rgb(231,19,8)'} onClick={() => this.playBackSamples()} />
+          <SeeNSayButton color={'rgb(4,172,149)'} onClick={() => { this.randomizeSamples(); this.playBackSamples(); }} />
         </div>
       </div>
     );
