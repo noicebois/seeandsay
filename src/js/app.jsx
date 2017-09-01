@@ -60,18 +60,36 @@ class SeeNSay extends React.Component {
     this.pointers = [0,0,0,0,0];
   }
 
-  playSample(sampleUrl) {
-    const sample = new Audio(sampleUrl);
-    sample.play();
+  // Return Promise on audio completion
+  async playSample(sampleUrl) {
+    return new Promise((resolve, reject) => {
+      const sample = new Audio(sampleUrl);
+      sample.onended = () => {
+        sample.onended = null;
+        resolve();
+      };
+      sample.play();
+    });
   }
 
-  handleButtonPress(i) {
+  handleSamplePress(i) {
     // Advance the index, bounded by sample length
     this.pointers[i] = (this.pointers[i] + 1) % SAMPLES[i].length;
     // Play the current index
     this.playSample(`samples/${SAMPLES[i][this.pointers[i]]}`);
+  }
 
+  async playBackSamples() {
+    let i;
+    for (i = 0; i < SAMPLES.length; i++) {
+      await this.playSample(`samples/${SAMPLES[i][this.pointers[i]]}`);
+    }
+  }
 
+  randomizeSamples() {
+    this.pointers = this.pointers.map((pointer, i) => {
+      return Math.floor(Math.random() * SAMPLES[i].length);
+    });
   }
 
   playback() {
@@ -81,13 +99,17 @@ class SeeNSay extends React.Component {
   render() {
     const buttons = BUTTONS.map((color, i) => {
       return (
-        <SeeNSayButton key={color} color={color} onClick={() => this.handleButtonPress(i)} />
+        <SeeNSayButton key={color} color={color} onClick={() => this.handleSamplePress(i)} />
       )
     });
 
     return (
       <div>
         {buttons}
+        <div>
+          <SeeNSayButton color={'red'} onClick={() => this.playBackSamples()} />
+          <SeeNSayButton color={'green'} onClick={() => { this.randomizeSamples(); this.playBackSamples(); }} />
+        </div>
       </div>
     );
   }
