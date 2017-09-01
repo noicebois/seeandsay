@@ -22434,19 +22434,43 @@ var SeeNSay = function (_React$Component) {
     return _this;
   }
 
+  // Return Promise on audio completion
+
+
   _createClass(SeeNSay, [{
     key: 'playSample',
-    value: function playSample(sampleUrl) {
-      var sample = new Audio(sampleUrl);
-      sample.play();
+    value: async function playSample(sampleUrl) {
+      return new Promise(function (resolve, reject) {
+        var sample = new Audio(sampleUrl);
+        sample.onended = function () {
+          sample.onended = null;
+          resolve();
+        };
+        sample.play();
+      });
     }
   }, {
-    key: 'handleButtonPress',
-    value: function handleButtonPress(i) {
+    key: 'handleSamplePress',
+    value: function handleSamplePress(i) {
       // Advance the index, bounded by sample length
       this.pointers[i] = (this.pointers[i] + 1) % SAMPLES[i].length;
       // Play the current index
       this.playSample('samples/' + SAMPLES[i][this.pointers[i]]);
+    }
+  }, {
+    key: 'playBackSamples',
+    value: async function playBackSamples() {
+      var i = void 0;
+      for (i = 0; i < SAMPLES.length; i++) {
+        await this.playSample('samples/' + SAMPLES[i][this.pointers[i]]);
+      }
+    }
+  }, {
+    key: 'randomizeSamples',
+    value: function randomizeSamples() {
+      this.pointers = this.pointers.map(function (pointer, i) {
+        return Math.floor(Math.random() * SAMPLES[i].length);
+      });
     }
   }, {
     key: 'playback',
@@ -22460,14 +22484,24 @@ var SeeNSay = function (_React$Component) {
 
       var buttons = BUTTONS.map(function (color, i) {
         return _react2.default.createElement(_button2.default, { key: color, color: color, onClick: function onClick() {
-            return _this2.handleButtonPress(i);
+            return _this2.handleSamplePress(i);
           } });
       });
 
       return _react2.default.createElement(
         'div',
         null,
-        buttons
+        buttons,
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_button2.default, { color: 'red', onClick: function onClick() {
+              return _this2.playBackSamples();
+            } }),
+          _react2.default.createElement(_button2.default, { color: 'green', onClick: function onClick() {
+              _this2.randomizeSamples();_this2.playBackSamples();
+            } })
+        )
       );
     }
   }]);
