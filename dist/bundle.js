@@ -22495,10 +22495,10 @@ var SeeNSay = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_button2.default, { color: 'red', onClick: function onClick() {
+          _react2.default.createElement(_button2.default, { color: 'rgb(231,19,8)', onClick: function onClick() {
               return _this2.playBackSamples();
             } }),
-          _react2.default.createElement(_button2.default, { color: 'green', onClick: function onClick() {
+          _react2.default.createElement(_button2.default, { color: 'rgb(4,172,149)', onClick: function onClick() {
               _this2.randomizeSamples();_this2.playBackSamples();
             } })
         )
