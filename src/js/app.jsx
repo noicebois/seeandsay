@@ -104,7 +104,7 @@ class SeeNSay extends React.Component {
     });
 
     return (
-      <div>
+      <div id="button-tray">
         {buttons}
         <div>
           <SeeNSayButton color={'rgb(231,19,8)'} onClick={() => this.playBackSamples()} />

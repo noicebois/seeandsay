@@ -5,3 +5,16 @@ button.seensay-button {
   height: 50px;
   margin: 8px;
 }
+
+body {
+  background-color: rgb(5,131,215);
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+#button-tray {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(234,213,0);
+}
