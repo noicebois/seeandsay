@@ -22490,7 +22490,7 @@ var SeeNSay = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'button-tray' },
         buttons,
         _react2.default.createElement(
           'div',
